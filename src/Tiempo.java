@@ -1,120 +1,107 @@
 
+
 public class Tiempo {
+	
+	private int horas;
+	private int minutos;
+	private int segundos;
+	
+	public Tiempo() {
+		this.horas = 0;
+		this.minutos = 0;
+		this.segundos = 0;
+	}
+	
+	public Tiempo(int h, int m, int s) {
+		this.horas = h;
+		this.minutos = m;
+		this.segundos = s;
+	}
 
-	int modo,hora, minutos,segundos;
+	public int getHoras() {
+		return horas;
+	}
 
-    int getmodo(){
+	public void setHoras(int horas) {
+		this.horas = horas;
+	}
 
-    return modo;
+	public int getMinutos() {
+		return minutos;
+	}
 
-    }
+	public void setMinutos(int minutos) {
+		this.minutos = minutos;
+	}
 
+	public int getSegundos() {
+		return segundos;
+	}
 
-    public void setmodo(int modo){
-
-    this.modo=modo;
-    }
-
-    int gethora(){
-
-    return hora;
-
-    }
-
-
-    public void sethora(int hora){
-
-    this.hora=hora;
-    }
-
-    public int getminutos(){
-
-    return minutos;
-
-    }
-
-
-    public void setminutos(int minutos){
-
-    this.minutos=minutos;
-    }
-
-    public  int getsegundos(){
-
-    return segundos;
-
-    }
-
-
-   public  void setsegundos(int segundos){
-
-    this.segundos=segundos;
-    }
-
-   public  Tiempo(){
-    modo=24; /*por defecto ponemos 24horas*/
-    hora=0;
-    minutos=0;
-    segundos=0;
-
-
-    }
-
-    public Tiempo( int h, int m, int s){
-        this.modo=24;
-        this.hora=h %24;
-        this.minutos=m % 60;
-        this.segundos=s % 60;
-
-    }
-
-
-   public void ponerEnHora(int md, int hh, int mm, int ss){
-      modo=md;
-      hora=hh % 24;
-      minutos=mm % 60;
-      segundos=ss % 60;
-   }
-
-   public void incrementar(){
-    segundos++;
-    if (segundos==60){
-    segundos=0;
-    minutos++;
-    if(minutos==60){
-    minutos=0;
-    hora=(hora+1)%24;
-    }
-
-    }
-
-    }
-
-   public void decrementa(){
-    segundos--;
-    if(segundos<00){
-        segundos=59;
-        minutos--;
-        if(minutos<00){
-        minutos=59;
-        hora=(hora-1) %24;
-
-        }
-    }
-   }
-   public String verHora(){
-
-       String hms="Son las ";
-
-       if (modo==12){//modo 12 horas    
-           hms+=(hora>12)?hora-12:hora;
-           hms+= ":"+minutos+":"+segundos;
-           hms+=(hora>=12)?"pm":"am";
-
-       }else{//modo 24h
-       hms+=hora+":"+minutos+":"+segundos;
-       }
-   return (hms);
-   }
-
+	public void setSegundos(int segundos) {
+		this.segundos = segundos;
+	}
+	
+	public void aumentarHoras(int h) {
+		
+		this.horas = this.horas + h; 
+		if(this.horas >= 24) {
+			this.horas -= 24;
+		}
+	}
+	
+	public void aumentarMinutos(int m) {
+		this.minutos = this.minutos + m;
+		if(this.minutos>=60) {
+			while(this.minutos>=60) {
+				this.aumentarHoras(1); 
+				this.minutos -= 60;
+			} 
+		}
+	}
+	
+	public void aumentarSegundos(int s) {
+		this.segundos = this.segundos + s;
+		if(this.segundos>=60) {
+			while(this.segundos>=60) {
+				this.aumentarMinutos(1); 
+				this.segundos -= 60;
+			} 
+		}
+	}
+	
+	public void disminuirHoras(int h) {
+		
+		this.horas = this.horas - h; 
+		if(this.horas < 0) {
+			this.horas += 24;
+		}
+	}
+	
+	public void disminuirMinutos(int m) {
+		this.minutos = this.minutos - m;
+		if(this.minutos<0) {
+			while(this.minutos<0) {
+				this.disminuirHoras(1); 
+				this.minutos += 60;
+			} 
+		}
+	}
+	
+	public void disminuirSegundos(int m) {
+		this.segundos = this.segundos - m;
+		if(this.segundos<0) {
+			while(this.segundos<0) {
+				this.disminuirMinutos(1); 
+				this.segundos += 60;
+			} 
+		}
+	} 
+	
+	
+	public String toString() {
+		
+		return ((this.horas<10)?"0":"")+this.horas +":"+this.minutos+":"+this.segundos;
+	} 
+	
 }
